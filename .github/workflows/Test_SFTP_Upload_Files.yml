@@ -21,6 +21,6 @@ jobs:
         host: 'frs.sourceforge.net'
         port: 22
         username: 'andremikulec,andremikulec.u'
-        password: ${{ env.SF_ANDREMIKULEC_PWD }}
+        password: "${{ env.SF_ANDREMIKULEC_PWD }}"
         localPath: './readme_Test_SFTP_Upload_Files.md'
         remotePath: '/home/frs/project/andremikulec'
