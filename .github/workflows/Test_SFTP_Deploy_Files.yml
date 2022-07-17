@@ -3,14 +3,14 @@ on:
   pull_request:
   workflow_dispatch:
 
-name: Test SFTP Upload Files
+name: Test SFTP Deploy Files
 
 jobs:
-  upload_files:
+  deploy_files:
     runs-on: ubuntu-latest
     env:
       SF_ANDREMIKULEC_PWD: ${{ secrets.SF_ANDREMIKULEC_PWD }}
-    name: Upload a builded file.
+    name: Deploy a builded file.
     steps:
     - if: ${{ env.SF_ANDREMIKULEC_PWD != '' }}
       run: echo 'This step will only run if the secret has a value set.'
@@ -18,14 +18,14 @@ jobs:
       run: echo 'This step will only run if the secret does not have a value set.'
     - name: Checkout
       uses: actions/checkout@v2.3.4
-    - name: Upload Files
-      id: upload
-      uses: Creepios/sftp-action@v1.0.3
+    - name: Deploy Files
+      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
       with:
-        host: 'frs.sourceforge.net'
-        port: 22
         username: 'andremikulec,andremikulec.u'
-        password: '${{ env.SF_ANDREMIKULEC_PWD }}'
-        localPath: './readme_Test_SFTP_Upload_Files.md'
-        remotePath: '/home/frs/project/andremikulec'
-        agent: ''
+        server: 'frs.sourceforge.net'
+        port: 22
+        local_path: './readme_Test_SFTP_Deploy_Files.md'
+        remote_path: '/home/frs/project/andremikulec'
+        sftp_only: true
+        password: ${{ env.SF_ANDREMIKULEC_PWD }}
+  
