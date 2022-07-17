@@ -1,18 +1,30 @@
-# Github Actions - try to read a Secret
+# Github Actions upload a file to an SFTP site
 
-Previous works from explanation in
+```
+on: [push]
 
-AND direct secret button (without environment) is in a BAD place
-When the page opens, the page jumps immediately to the middle of the screen
+jobs:
+  upload_files:
+    runs-on: ubuntu-latest
+    name: Upload a builded file.
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+    - name: Upload Files
+      id: upload
+      uses: Creepios/sftp-action@v1.0.3
+      with:
+        host: '127.0.0.1'
+        port: 22
+        username: 'root'
+        password: 'password'
+        localPath: './dist/index.js'
+        remotePath: './'
+```
+JUL 2022
 
-Settings -> Security -> Secrets -> Actions -> scroll up to TOP RIGHT -> [New Repository secret]
+sftp-action
 
-(nearly direct example from)
-https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
-AND
-Using encrypted secrets in a workflow
-https://docs.github.com/en/actions/security-guides/encrypted-secrets#using-encrypted-secrets-in-a-workflow
-Naming your Secrets [setup]
-https://docs.github.com/en/actions/security-guides/encrypted-secrets#naming-your-secrets
-Encrypted secrets
-https://docs.github.com/en/actions/security-guides/encrypted-secrets
+This action can (currently only) upload files and directories over sftp with ssh login.
+
+https://github.com/marketplace/actions/sftp-ssh-action
