@@ -12,6 +12,10 @@ jobs:
       SF_ANDREMIKULEC_PWD: ${{ secrets.SF_ANDREMIKULEC_PWD }}
     name: Upload a builded file.
     steps:
+    - if: ${{ env.SF_ANDREMIKULEC_PWD != '' }}
+      run: echo 'This step will only run if the secret has a value set.'
+    - if: ${{ env.SF_ANDREMIKULEC_PWD == '' }}
+      run: echo 'This step will only run if the secret does not have a value set.'
     - name: Checkout
       uses: actions/checkout@v2.3.4
     - name: Upload Files
@@ -21,6 +25,6 @@ jobs:
         host: 'frs.sourceforge.net'
         port: 22
         username: 'andremikulec,andremikulec.u'
-        password: "${{ env.SF_ANDREMIKULEC_PWD }}"
+        password: '${{ env.SF_ANDREMIKULEC_PWD }}'
         localPath: './readme_Test_SFTP_Upload_Files.md'
         remotePath: '/home/frs/project/andremikulec'
