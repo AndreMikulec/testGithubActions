@@ -28,3 +28,4 @@ jobs:
         password: '${{ env.SF_ANDREMIKULEC_PWD }}'
         localPath: './readme_Test_SFTP_Upload_Files.md'
         remotePath: '/home/frs/project/andremikulec'
+        agent: ''
